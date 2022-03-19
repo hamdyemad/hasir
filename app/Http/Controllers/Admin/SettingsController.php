@@ -9,12 +9,12 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
+    use File;
 
     public function __construct()
     {
     }
 
-    use File;
     /**
      * Display a listing of the resource.
      *

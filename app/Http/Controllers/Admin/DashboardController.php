@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Branch;
-use App\Models\Category;
+use App\Models\Client;
 use App\Models\Order;
-use App\Models\Product;
-use App\Models\Status;
+use App\Models\Project;
+use App\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -19,13 +18,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $productsCount = Product::all()->count();
-        $categoriesCount = Category::all()->count();
-        $branchesCount = Branch::all()->count();
+        $usersCount = User::all()->count();
         $ordersCount = Order::all()->count();
-        $statuses = Status::orderBy('name')->get();
-        return view('dashboard.index', compact('productsCount', 'categoriesCount',
-        'branchesCount', 'ordersCount'));
+        $projectsCount = Project::all()->count();
+        $clientsCount = Client::all()->count();
+        return view('dashboard.index', compact('usersCount', 'ordersCount', 'projectsCount', 'clientsCount'));
     }
 
     /**

@@ -5,20 +5,17 @@
 @section('content')
  <!-- start page title -->
                     <div class="row">
-
-
-
                          @component('common-components.breadcrumb')
-                     @slot('title') Email Read  @endslot                     
+                     @slot('title') Email Read  @endslot
                      @slot('li1') Lexa  @endslot
                      @slot('li2') Email  @endslot
                      @slot('li3') Email Read @endslot
                 @endcomponent
 
                 @component('common-components.chart')
-                     @slot('chart1_id') header-chart-1  @endslot                     
+                     @slot('chart1_id') header-chart-1  @endslot
                      @slot('chart1_title') Balance $ 2,317  @endslot
-                     @slot('chart2_id') header-chart-2  @endslot                     
+                     @slot('chart2_id') header-chart-2  @endslot
                      @slot('chart3_title') Item Sold 1230  @endslot
                 @endcomponent
                     </div>

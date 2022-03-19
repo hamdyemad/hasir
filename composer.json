@@ -8,15 +8,14 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4.1",
+        "php": "^7.3|^8.0",
         "fideloper/proxy": "^4.2",
-        "fruitcake/laravel-cors": "^1.0",
-        "guzzlehttp/guzzle": "^7.2.0",
+        "fruitcake/laravel-cors": "^3.0",
+        "guzzlehttp/guzzle": "^7.0.1",
         "laracasts/flash": "^3.2",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
-        "pusher/pusher-php-server": "^4.1",
         "yoeunes/toastr": "^1.2"
     },
     "require-dev": {
@@ -43,10 +42,6 @@
         "classmap": [
             "database/seeds",
             "database/factories"
-        ],
-        "files": [
-            "App/Http/Kernel.php",
-            "App/Http/Helpers.php"
         ]
     },
     "autoload-dev": {

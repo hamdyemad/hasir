@@ -22,26 +22,8 @@
                 <div class="card-body">
                     <form class="form-horizontal mt-4" method="POST" action="{{ route('users.store') }}"
                         enctype="multipart/form-data">
-                        <input type="hidden" name="type" value="{{ request('type') }}">
                         @csrf
                         <div class="row">
-                            @if(Auth::user()->type == 'admin')
-                                <div class="col-12 col-md-6 branch_col">
-                                    <div class="form-group">
-                                        <label for="branch_id">الفرع</label>
-                                        <select class="form-control select2" name="branch_id">
-                                            @foreach ($branches as $branch)
-                                            <option value="{{ $branch->id }}" @if (old('branch_id') ==  $branch->id) selected @endif>{{ $branch->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('branch_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @else
-                                <input type="hidden" name="branch_id" value="{{ Auth::user()->branch_id }}">
-                            @endif
                             <div class="col-12 col-md-6 roles_col">
                                 <div class="form-group">
                                     <label for="category">الصلاحيات</label>

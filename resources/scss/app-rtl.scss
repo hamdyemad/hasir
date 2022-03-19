@@ -9,7 +9,10 @@ File: Main RTL Css File
 
 //Fonts
 @import "custom/fonts/fonts";
-
+@font-face {
+    font-family: "Myriad";
+    src: url("../fonts/Bahij_Myriad_Arabic-Regular.ttf");
+}
 //Core files
 @import "./node_modules/bootstrap/scss/functions";
 @import "./node_modules/bootstrap/scss/variables";
@@ -78,8 +81,22 @@ File: Main RTL Css File
 @import "custom/rtl/components-rtl";
 @import "custom/rtl/pages-rtl";
 body {
-    font-family: "Cairo", sans-serif;
-    font-size: 16px;
+    font-family: "Myriad", sans-serif;
+    font-size: 20px;
+    color: $headingColor;
+    counter-reset: section;
+    overflow-x: hidden;
+}
+* {
+    font-size: 20px;
+}
+.page-title-box {
+    h4 {
+        font-size: 22px !important;
+    }
+}
+p {
+    color: #666666;
 }
 
 ::-webkit-scrollbar {
@@ -107,21 +124,13 @@ body {
 // Admin
 /*  Back End   */
 
-// Categories
-@import "./admin/categories/create";
-@import "./admin/categories/edit";
-@import "./admin/categories/index";
-@import "./admin/categories/show";
-
-// Products
-@import "./admin/categories/products/create";
-@import "./admin/categories/products/index";
-@import "./admin/categories/products/show";
-
-// Products
-@import "./admin/orders/create";
-@import "./admin/orders/show";
-@import "./admin/orders/index";
+// Dashboard
+@import "./admin/dashboard";
+// Projects
+@import "./admin/projects/create";
+@import "./admin/projects/edit";
+@import "./admin/projects/index";
+@import "./admin/projects/show";
 
 // Settings
 @import "./admin/settings/edit";
@@ -134,60 +143,97 @@ body {
 @import "./admin/roles/index";
 @import "./admin/roles/create";
 
+// Orders
+@import "./admin/orders/index";
+// Messages
+@import "./admin/messages/index";
+
 /* INC */
 @import "./inc/invoice";
 
 /*  Front End   */
 @import "./frontend/navbar";
 @import "./frontend/home";
-@import "./frontend/branch";
-@import "./frontend/product";
-@import "./frontend/cart";
-@import "./frontend/payment";
-@import "./frontend/order_confirmed";
-@import "./frontend/user/profile";
-@import "./frontend/inc/user_side_nav";
+@import "./frontend/project";
 @import "./frontend/footer";
 
-.order_tracker {
-    padding: 55px 0;
-    .track {
-        position: relative;
-        h3 {
-            width: max-content;
-            margin: auto;
-            @media (max-width: 991px) {
-                font-size: 18px;
-            }
-        }
-        &.active {
-            color: var(--green) !important;
-        }
-        span.mdi {
+@import "./frontend/partials/keyframes";
+
+.heading {
+    position: relative;
+    h3 {
+        border-left: 5px solid var(--primary);
+        border-radius: 5px;
+        font-size: 45px;
+        display: block;
+        width: max-content;
+        padding: 0px 10px;
+        margin-bottom: 20px;
+        @media (max-width: 991px) {
             font-size: 30px;
+            margin: auto;
+            margin-bottom: 20px;
+            border: unset;
+            border-bottom: 5px solid var(--primary);
         }
     }
 }
 
-.bell {
-    display: block;
-    .notify {
-        background-color: var(--red);
-        position: absolute;
-        top: 0;
-        right: -10px;
-        font-size: 16px;
+.account-pages {
+    img {
+        border-radius: unset;
+        width: 160px;
+        height: 70px;
     }
-    .mdi {
-        position: relative;
-        margin: auto;
-        font-size: 35px;
-        background: #fff;
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
-        display: block;
+}
+
+.contact_from_form {
+    z-index: 2;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    a {
+        box-shadow: 0px 0px 10px #d8d8d8;
+        background-color: var(--primary);
         border-radius: 50%;
+        width: 60px;
+        line-height: 60px;
         text-align: center;
+        height: 60px;
+        display: block;
+        &:hover {
+            + .popup {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+        span {
+            color: #fff;
+            font-size: 35px;
+        }
+    }
+    .popup {
+        transition: all 0.3s ease-in-out;
+        background-color: var(--primary);
+        box-shadow: 0px 0px 10px #d8d8d8;
+        color: #fff;
+        border-radius: 10px;
+        padding: 5px 10px;
+        width: max-content;
+        position: absolute;
+        top: -55px;
+        left: 50%;
+        opacity: 0;
+        transform: translate(-50%, -20px);
+        &:after {
+            content: "";
+            position: absolute;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--primary);
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     }
 }

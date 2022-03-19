@@ -3,9 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 
-Route::redirect('/admin', '/admin/dashboard');
 
-Route::post('/all_cities', 'Admin\CountryController@allCities')->name('cities.all');
 Route::group(['middleware' => ['web', 'auth', 'admin','notBanned']], function() {
     Route::group(['namespace' => 'Auth'], function() {
         // Logout User
@@ -14,115 +12,68 @@ Route::group(['middleware' => ['web', 'auth', 'admin','notBanned']], function() 
     Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function() {
         // Render perticular view file by foldername and filename and all passed in only one controller at a time
         // Route::get('/{folder}/{file}', 'LexaAdmin@index');
-        Route::get('/', 'DashboardController@index')->name('admin_home');
         Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 
 
-        // Branches
-        Route::group(['prefix' => 'branches', 'as' => 'branches.'], function() {
-            Route::get('/', 'BranchController@index')->name('index');
-            Route::post('/', 'BranchController@store')->name('store');
-            Route::get('/create', 'BranchController@create')->name('create');
-            Route::get('/edit/{branch}', 'BranchController@edit')->name('edit');
-            Route::patch('/{branch}', 'BranchController@update')->name('update');
-            Route::delete('/{branch}', 'BranchController@destroy')->name('destroy');
+        // Projects
+        Route::group(['prefix' => 'projects', 'as' => 'projects.'], function() {
+            Route::get('/', 'ProjectController@index')->name('index');
+            Route::post('/', 'ProjectController@store')->name('store');
+            Route::get('/create', 'ProjectController@create')->name('create');
+            Route::get('/edit/{project}', 'ProjectController@edit')->name('edit');
+            Route::patch('/{project}', 'ProjectController@update')->name('update');
+            Route::delete('/{project}', 'ProjectController@destroy')->name('destroy');
+            Route::post('/remove_info', 'ProjectController@removeInfo')->name('remove_info');
         });
-        // Categories
-        Route::group(['prefix' => 'categories', 'as' => 'categories.'], function() {
-            Route::get('/', 'CategoryController@index')->name('index');
-            Route::post('/', 'CategoryController@store')->name('store');
-            Route::get('/create', 'CategoryController@create')->name('create');
-            Route::get('/edit/{category}', 'CategoryController@edit')->name('edit');
-            // Ajax
-            Route::post('/all_categories', 'CategoryController@allCategories')->name('all');
-            Route::get('/{category}', 'CategoryController@show')->name('show');
-            Route::patch('/{category}', 'CategoryController@update')->name('update');
-            Route::delete('/{category}', 'CategoryController@destroy')->name('destroy');
-        });
-        // Products
-        Route::group(['prefix' => 'products', 'as' => 'products.'], function() {
-            Route::get('/', 'ProductController@index')->name('index');
-            Route::post('/', 'ProductController@store')->name('store');
-            Route::get('/all_by_ids', 'ProductController@all_by_ids')->name('all_by_ids');
-            Route::post('/all_products', 'ProductController@allByBranchId')->name('all');
-
-            Route::get('/create', 'ProductController@create')->name('create');
-            Route::get('/edit/{product}', 'ProductController@edit')->name('edit');
-            Route::get('/{product}', 'ProductController@show')->name('show');
-            Route::patch('/{product}', 'ProductController@update')->name('update');
-            Route::delete('/{product}', 'ProductController@destroy')->name('destroy');
-        });
-        // Orders
-        Route::group(['prefix' => 'orders', 'as' => 'orders.'], function() {
-            Route::get('/', 'OrderController@index')->name('index');
-            Route::post('/', 'OrderController@store')->name('store');
-            Route::post('/status', 'OrderController@updateStatus')->name('status_update');
-            Route::get('/create', 'OrderController@create')->name('create');
-            Route::get('/edit/{order}', 'OrderController@edit')->name('edit');
-            Route::get('/{order}', 'OrderController@show')->name('show');
-            Route::patch('/{order}', 'OrderController@update')->name('update');
-            Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
-        });
-
-        // Statuses
-        Route::group(['prefix' => 'statuses', 'as' => 'statuses.'], function() {
-            Route::get('/', 'StatusController@index')->name('index');
-            Route::post('/', 'StatusController@store')->name('store');
-            Route::get('/create', 'StatusController@create')->name('create');
-            Route::get('/edit/{status}', 'StatusController@edit')->name('edit');
-            Route::get('/{status}', 'StatusController@show')->name('show');
-            Route::patch('/{status}', 'StatusController@update')->name('update');
-            Route::delete('/{status}', 'StatusController@destroy')->name('destroy');
-        });
-
-        // Expenses
-            Route::group(['prefix' => 'expenses', 'as' => 'expenses.'], function() {
-                Route::get('/', 'ExpenseController@index')->name('index');
-                Route::post('/', 'ExpenseController@store')->name('store');
-                Route::get('/create', 'ExpenseController@create')->name('create');
-                Route::get('/edit/{expense}', 'ExpenseController@edit')->name('edit');
-                Route::get('/{expense}', 'ExpenseController@show')->name('show');
-                Route::patch('/{expense}', 'ExpenseController@update')->name('update');
-                Route::delete('/{expense}', 'ExpenseController@destroy')->name('destroy');
-            });
-
-        // Business
-        Route::group(['prefix' => 'business', 'as' => 'business.'], function() {
-            Route::get('/', 'BusinessController@index')->name('index');
-            Route::get('/all', 'BusinessController@all')->name('all');
-            Route::post('/', 'BusinessController@store')->name('store');
-            Route::get('/create', 'BusinessController@create')->name('create');
-            Route::get('/edit/{business}', 'BusinessController@edit')->name('edit');
-            Route::patch('/{business}', 'BusinessController@update')->name('update');
-            Route::delete('/{business}', 'BusinessController@destroy')->name('destroy');
+         // CLients
+         Route::group(['prefix' => 'clients', 'as' => 'clients.'], function() {
+            Route::get('/', 'ClientController@index')->name('index');
+            Route::post('/', 'ClientController@store')->name('store');
+            Route::get('/create', 'ClientController@create')->name('create');
+            Route::get('/edit/{client}', 'ClientController@edit')->name('edit');
+            Route::patch('/{client}', 'ClientController@update')->name('update');
+            Route::delete('/{client}', 'ClientController@destroy')->name('destroy');
         });
 
 
-        // Business Settings
+        // Settings
         Route::group(['prefix' => 'settings', 'as' => 'settings.'], function() {
             Route::get('/edit', 'SettingsController@edit')->name('edit');
             Route::patch('/update', 'SettingsController@update')->name('update');
         });
 
-        // Countries
-        Route::group(['prefix' => 'countries', 'as' => 'countries.'], function() {
-            Route::get('/', 'CountryController@index')->name('index');
-            Route::post('/', 'CountryController@store')->name('store');
-            Route::get('/create', 'CountryController@create')->name('create');
-            Route::get('/edit/{country}', 'CountryController@edit')->name('edit');
-            Route::patch('/{country}', 'CountryController@update')->name('update');
-            Route::delete('/{country}', 'CountryController@destroy')->name('destroy');
+        // Orders
+        Route::group(['prefix' => 'orders', 'as' => 'orders.'], function() {
+            Route::get('/', 'OrderController@index')->name('index');
+            Route::post('/', 'OrderController@store')->name('store');
+            Route::post('/status', 'OrderController@updateStatus')->name('status_update');
+            Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
+        });
 
-            Route::post('/all_cities', 'CountryController@allCities')->name('cities.all');
+        // Investors
+        Route::group(['prefix' => 'investors', 'as' => 'investors.'], function() {
+            Route::get('/', 'MessagesController@index')->name('index');
+            Route::post('/status', 'MessagesController@updateStatus')->name('status_update');
+            Route::delete('/{message}', 'MessagesController@destroy')->name('destroy');
+        });
 
-            // Cities
-            Route::get('/{country}/cities', 'CityController@index')->name('cities.index');
-            Route::get('/{country}/cities/create', 'CityController@create')->name('cities.create');
-            Route::post('/{country}/cities', 'CityController@store')->name('cities.store');
-            Route::get('/{country}/cities/edit/{city}', 'CityController@edit')->name('cities.edit');
-            Route::patch('/{country}/{city}', 'CityController@update')->name('cities.update');
-            Route::delete('/{country}/{city}', 'CityController@destroy')->name('cities.destroy');
+        // Messages
+        Route::group(['prefix' => 'messages', 'as' => 'messages.'], function() {
+            Route::get('/', 'MessagesController@index')->name('index');
+            Route::post('/status', 'MessagesController@updateStatus')->name('status_update');
+            Route::delete('/{message}', 'MessagesController@destroy')->name('destroy');
+        });
+
+
+        // Statuses
+        Route::group(['prefix' => 'statuses', 'as' => 'statuses.'], function() {
+            Route::get('/', 'StatusController@index')->name('index');
+            Route::get('/create', 'StatusController@create')->name('create');
+            Route::post('/', 'StatusController@store')->name('store');
+            Route::get('/{status}/edit', 'StatusController@edit')->name('edit');
+            Route::patch('/{status}', 'StatusController@update')->name('update');
+            Route::delete('/{status}', 'StatusController@destroy')->name('destroy');
         });
 
         // Users

@@ -83,7 +83,7 @@
 
 @section('footerScript')
  <!-- google maps api -->
-            <script src="https://maps.google.com/maps/api/js?key=AIzaSyCtSAR45TFgZjOs4nBFFZnII-6mMHLfSYI"></script>
+            <script src="https://maps.google.com/maps/api/js?key=AIzaSyCpd1jbe24EJfZ2rsloF3wrFxN-vBGvsr0"></script>
 
             <!-- Gmaps file -->
             <script src="{{ URL::asset('/libs/gmaps/gmaps.min.js')}}"></script>

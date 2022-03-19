@@ -1,14 +1,5 @@
  <!-- ========== Left Sidebar Start ========== -->
- @php
-    if(Auth::user()->type == 'admin') {
-        $orders_count = App\Models\Order::where('viewed', 0)->latest()->get()->count();
-    } else {
-        $orders_count = App\Models\Order::where('viewed', 0)->where('branch_id', Auth::user()->branch_id)->latest()->get()->count();
-    }
-@endphp
  <div class="vertical-menu">
-
-
      <div data-simplebar class="h-100">
          <!--- Sidemenu -->
          <div id="sidebar-menu">
@@ -39,120 +30,93 @@
                          </a>
                      </li>
                  @endcan
-                 @can('business.index')
-                     <li>
-                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                             <i class="mdi mdi-credit-card"></i>
-                             <span>المعاملات المالية</span>
-                         </a>
-                         <ul class="sub-menu" aria-expanded="false">
-                             <li>
-                                 <a href="{{ route('business.index') }}" class="waves-effect">
-                                     <span>كل المعاملات المالية</span>
-                                 </a>
-                             </li>
-                             @can('business.all')
-                                 <li>
-                                     <a href="{{ route('business.all') }}" class="waves-effect">
-                                         <span>الأيرادات والمصروفات</span>
-                                     </a>
-                                 </li>
-                             @endcan
-                         </ul>
-                     </li>
-                 @endcan
-                 @can('branches.index')
-                     <li>
-                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                             <i class="mdi mdi-source-branch"></i>
-                             <span>الفروع</span>
-                         </a>
-                         <ul class="sub-menu" aria-expanded="false">
-                             <li><a href="{{ route('branches.index') }}">كل الفروع</a></li>
-                             @can('branches.create')
-                                 <li><a href="{{ route('branches.create') }}">انشاء فرع</a></li>
-                             @endcan
-                         </ul>
-                     </li>
-                 @endcan
-                 <li class="orders">
-                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                         <i class="mdi mdi-cart-outline"></i>
-                         @if($orders_count !== 0)
-                            <span class="badge badge-pill badge-primary float-right">{{ $orders_count }}</span>
-                         @endif
-                         <span>الطلبات</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                             @can('orders.index')
-                                <li><a href="{{ route('orders.index') }}">كل الطلبات</a></li>
-                             @endcan
-                             @can('orders.create')
-                                 <li><a href="{{ route('orders.create') }}">اضف طلب</a></li>
-                             @endcan
-                             @can('statuses.index')
-                             <li><a href="{{ route('statuses.index') }}">حالات الطلبات</a></li>
-                             @endcan
-                             @can('statuses.create')
-                                <li><a href="{{ route('statuses.create') }}">أضف حالة طلبات</a></li>
-                             @endcan
-                         </ul>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-projector-screen"></i>
+
+                        <span>المشاريع</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                    @can('projects.index')
+                        <li><a href="{{ route('projects.index') }}">كل المشاريع</a></li>
+                    @endcan
+                        @can('projects.create')
+                            <li><a href="{{ route('projects.create') }}">انشاء مشروع</a></li>
+                        @endcan
+                    </ul>
                 </li>
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-account-badge-horizontal-outline"></i>
+                        <span>شركاء النجاح</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                    @can('clients.index')
+                        <li><a href="{{ route('clients.index') }}">كل شركاء النجاح</a></li>
+                    @endcan
+                    @can('clients.create')
+                        <li><a href="{{ route('clients.create') }}">انشاء عميل</a></li>
+                    @endcan
+                    </ul>
+                </li>
+                @php
+                    $orders = App\Models\Order::where('viewed', 0)->latest()->get();
+                    $messages = App\Models\Message::where('viewed', 0)->where('project_id', null)->latest()->get();
+                    $investors = App\Models\Message::where('viewed', 0)->where('project_id', '!=',null)->latest()->get();
+                @endphp
+                @can('orders.index')
+                    <li>
+                        <a href="{{ route('orders.index') }}">
+                            <i class="mdi mdi-cart-outline"></i>
+                            <span class="badge badge-pill badge-primary float-right">{{ $orders->count() }}</span>
+                            <span>الطلبات</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('investors.index')
+                    <li>
+                        <a href="{{ route('investors.index') . '?type=مستثمر' }}">
+                            <i class="mdi mdi-account-cash-outline"></i>
+                            <span class="badge badge-pill badge-primary float-right">{{ $investors->count() }}</span>
+                            <span>المستثمرين</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('messages.index')
+                    <li>
+                        <a href="{{ route('messages.index') }}">
+                            <i class="mdi mdi-email-outline"></i>
+                            <span class="badge badge-pill badge-primary float-right">{{ $messages->count() }}</span>
+                            <span>الرسائل</span>
+                        </a>
+                    </li>
+                @endcan
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow waves-effect">
+                        <i class="mdi mdi-account-supervisor-outline"></i>
 
-                 @can('categories.index')
-                     <li>
-                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                             <i class="mdi mdi-inbox-multiple"></i>
-
-                             <span>الأصناف</span>
-                         </a>
-                         <ul class="sub-menu" aria-expanded="false">
-                             <li><a href="{{ route('categories.index') }}">كل الأصناف</a></li>
-                             @can('categories.create')
-                                 <li><a href="{{ route('categories.create') }}">انشاء صنف</a></li>
-                             @endcan
-                         </ul>
-                     </li>
-                 @endcan
-                 @can('products.index')
-                     <li>
-                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                             <i class="mdi mdi-food"></i>
-
-                             <span>الأكلات</span>
-                         </a>
-                         <ul class="sub-menu" aria-expanded="false">
-                             <li><a href="{{ route('products.index') }}">كل الأكلات</a></li>
-                             @can('products.create')
-                                 <li><a href="{{ route('products.create') }}">اضافة اكلة</a></li>
-                             @endcan
-                         </ul>
-                     </li>
-                 @endcan
-                 @can('countries.index')
-                     <li>
-                         <a href="javascript: void(0);" class="has-arrow waves-effect">
-                             <i class="mdi mdi-airplane"></i>
-                             <span>الشحن والدول</span>
-                         </a>
-                         <ul class="sub-menu" aria-expanded="false">
-                             <li><a href="{{ route('countries.index') }}">كل الدول</a></li>
-                             @can('countries.create')
-                                 <li><a href="{{ route('countries.create') }}">اضافة دولة</a></li>
-                             @endcan
-                         </ul>
-                     </li>
-                 @endcan
+                        <span>حالات الطلبات</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        @can('statuses.index')
+                            <li><a href="{{ route('statuses.index') }}">حالات الطلبات</a></li>
+                        @endcan
+                        @can('statuses.create')
+                            <li><a href="{{ route('statuses.create') }}">أضف حالة طلبات</a></li>
+                        @endcan
+                        {{ permession_maker('ازالة حالات الطلبات', 'statuses.destroy', 'حالات الطلبات') }}
+                    </ul>
+                </li>
                  @can('users.index')
                      <li>
                          <a href="javascript: void(0);" class="has-arrow waves-effect">
                              <i class="mdi mdi-account-supervisor-outline"></i>
 
-                             <span>الموظفين والمستخدمين</span>
+                             <span>الموظفين</span>
                          </a>
                          <ul class="sub-menu" aria-expanded="false">
                              <li><a href="{{ route('users.index') }}">كل الموظفين</a></li>
-                             <li><a href="{{ route('users.index') . '?type=user' }}">كل المستخدمين</a></li>
                          </ul>
                      </li>
                  @endcan

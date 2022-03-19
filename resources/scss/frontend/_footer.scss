@@ -1,51 +1,47 @@
-.footer_fixed {
-    margin: 0;
-    padding: 10px;
-    z-index: 1;
-    background-color: $gray-200;
-    position: fixed;
-    bottom: -2px;
-    right: 0px;
-    width: 100%;
-    .row {
-        width: 100%;
-        a {
-            display: block;
-            .notify {
-                right: -25px;
-            }
-            .mdi {
-                position: relative;
-                margin: auto;
-                font-size: 35px;
-                background: #fff;
-                width: 50px;
-                height: 50px;
-                line-height: 50px;
-                display: block;
-                border-radius: 50%;
-                text-align: center;
-            }
-        }
-    }
-}
-
 footer {
-    padding: 40px 0 0 0;
-    background-color: #fff;
+    padding: 50px 0 0 0;
+    background-color: var(--primary);
     box-shadow: 0px 0px 0px black;
+    position: relative;
+    overflow: hidden;
     ul {
         list-style-type: none;
     }
+    p {
+        color: #fff;
+    }
+    .links {
+        li a {
+            color: #fff;
+            &:hover {
+                color: $dark;
+            }
+        }
+    }
     .social-links {
         li {
+            &.facebook a {
+                background-color: #1877f2;
+            }
+            &.instagram a {
+                background-color: #e4405f;
+            }
+            &.youtube a {
+                background-color: #cd201f;
+            }
+            &.twitter a {
+                background-color: #00acee;
+            }
             a {
-                background-color: var(--primary);
                 color: #fff;
+                transition: all 0.3s linear;
                 margin-left: 10px;
                 width: 35px;
                 height: 35px;
                 line-height: 35px;
+                &:hover {
+                    opacity: 0.6;
+                }
 
                 span {
                     font-size: 25px;
@@ -55,10 +51,5 @@ footer {
                 }
             }
         }
-    }
-    .down-footer {
-        padding: 20px;
-        color: var(--primary);
-        background-color: $gray-200;
     }
 }

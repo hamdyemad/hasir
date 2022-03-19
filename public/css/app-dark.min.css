@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Poppins:400,500,600);@charset "UTF-8";
+@charset "UTF-8";
 
 /*
 Template Name: Lexa - Responsive Bootstrap 4 Admin Dashboard
@@ -51,9 +51,8 @@ File: Main dark Css File
 }
 
 .logo img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
+  width: 130px;
+  height: 50px;
 }
 
 .logo .logo-sm {
@@ -526,7 +525,7 @@ body[data-layout=horizontal] .footer {
   padding: 11px 20px;
   color: #79829c;
   position: relative;
-  font-size: 13.3px;
+  font-size: 18px;
   transition: all 0.4s;
 }
 
@@ -559,7 +558,7 @@ body[data-layout=horizontal] .footer {
 
 #sidebar-menu ul li ul.sub-menu li a {
   padding: 0.4rem 1.5rem 0.4rem 3.2rem;
-  font-size: 13px;
+  font-size: 18px;
   color: #79829c;
 }
 
@@ -569,7 +568,7 @@ body[data-layout=horizontal] .footer {
 
 #sidebar-menu ul li ul.sub-menu li ul.sub-menu li a {
   padding: 0.4rem 1.5rem 0.4rem 4.5rem;
-  font-size: 13.5px;
+  font-size: 18px;
 }
 
 .menu-title {
@@ -577,7 +576,7 @@ body[data-layout=horizontal] .footer {
   letter-spacing: 0.05em;
   pointer-events: none;
   cursor: default;
-  font-size: 10px;
+  font-size: 15px;
   text-transform: uppercase;
   color: #7f8387;
   font-weight: 600;
@@ -667,6 +666,7 @@ body[data-layout=horizontal] .footer {
   padding: 15px 20px;
   min-height: 55px;
   transition: none;
+  font-size: 18px;
 }
 
 .vertical-collpsed .vertical-menu #sidebar-menu > ul > li > a:hover,

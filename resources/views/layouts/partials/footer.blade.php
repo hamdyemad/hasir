@@ -2,9 +2,10 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                © {{ date('Y', strtotime('-2 year')) }} - {{ date('Y') }} <span class="d-none d-sm-inline-block"> -
-                    Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                    Hamdy Emad (<a href="https://hamdyemad.com">hamdyemad.com</a>).</span>
+                <span>
+                    كل الحقوق محفوظة لدى {{ get_setting('project_name') }}
+                </span>
+                © {{ date('Y', strtotime('-2 year')) }} - {{ date('Y') }}
             </div>
         </div>
     </div>

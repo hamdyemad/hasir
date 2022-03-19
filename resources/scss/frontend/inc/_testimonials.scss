@@ -1,0 +1,11 @@
+.testimonials {
+    .testimonials_carousel {
+        position: relative;
+        img {
+            border-radius: 25px;
+            height: 120px;
+            width: 100%;
+        }
+        @import "./dots_and_nav";
+    }
+}

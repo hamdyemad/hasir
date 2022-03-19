@@ -1,0 +1,77 @@
+.projects {
+    position: relative;
+    overflow: hidden;
+    @media (max-width: 991px) {
+        padding: 20px 0 !important;
+    }
+    .img1 {
+        position: absolute;
+        animation: translateTopBottom 20s infinite ease-in-out;
+        left: 100px;
+        z-index: -1;
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+    }
+    .img2 {
+        position: absolute;
+        animation: translateRightLeft 20s infinite ease-in-out;
+        right: -100px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: -1;
+        width: 100px;
+        height: 100px;
+    }
+    .projects_carousel {
+        @import "./dots_and_nav";
+        a {
+            display: block;
+            .card {
+                position: relative;
+                border-radius: 25px;
+                padding: 20px;
+                @media (max-width: 991px) {
+                    text-align: center;
+                }
+                &:hover {
+                    &::before {
+                        clip-path: polygon(100% 0, 100% 100%, 100% 100%);
+                    }
+                }
+                &::before {
+                    transition: all 0.3s linear;
+                    border-radius: 25px;
+                    content: "";
+                    z-index: 0;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    background-color: var(--primary);
+                    opacity: 0.8;
+                    width: 100%;
+                    height: 100%;
+                    clip-path: polygon(100% 0, 0% 100%, 100% 100%);
+                }
+                .content {
+                    position: relative;
+                    img {
+                        width: 100%;
+                        height: 250px;
+                        border-radius: 25px;
+                    }
+                    h3 {
+                        padding-top: 10px;
+                        font-size: 30px;
+                        margin-bottom: 5px;
+                        color: $headingColor;
+                    }
+                    p {
+                        color: #393939;
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}

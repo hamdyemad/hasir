@@ -88,7 +88,7 @@
                 padding: 11px 20px;
                 color: $sidebar-menu-item-color;
                 position: relative;
-                font-size: 13.3px;
+                font-size: 18px;
                 transition: all 0.4s;
 
                 i {
@@ -121,7 +121,7 @@
                 li {
                     a {
                         padding: 0.4rem 1.5rem 0.4rem 3.2rem;
-                        font-size: 13px;
+                        font-size: 18px;
                         color: $sidebar-menu-sub-item-color;
                     }
 
@@ -131,7 +131,7 @@
                         li {
                             a {
                                 padding: 0.4rem 1.5rem 0.4rem 4.5rem;
-                                font-size: 13.5px;
+                                font-size: 18px;
                             }
                         }
                     }
@@ -146,7 +146,7 @@
     letter-spacing: 0.05em;
     pointer-events: none;
     cursor: default;
-    font-size: 10px;
+    font-size: 15px;
     text-transform: uppercase;
     color: $sidebar-menu-item-icon-color;
     font-weight: $font-weight-semibold;
@@ -242,7 +242,7 @@
                         padding: 15px 20px;
                         min-height: 55px;
                         transition: none;
-
+                        font-size: 18px;
                         &:hover,
                         &:active,
                         &:focus {

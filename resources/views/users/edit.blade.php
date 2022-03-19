@@ -25,21 +25,6 @@
                         @method("PATCH")
                         @csrf
                         <div class="row">
-                            @if(Auth::user()->type == 'admin')
-                                <div class="col-12 col-md-6 branch_col">
-                                    <div class="form-group">
-                                        <label for="branch_id">الفرع</label>
-                                        <select class="form-control select2" name="branch_id">
-                                            @foreach ($branches as $branch)
-                                            <option value="{{ $branch->id }}" @if ($user->branch_id ==  $branch->id) selected @endif>{{ $branch->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('branch_id')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endif
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="name">الأسم</label>
@@ -50,23 +35,21 @@
                                     @enderror
                                 </div>
                             </div>
-                            @if(request('type') == 'sub-admin')
-                                <div class="col-12 col-md-6">
-                                    <div class="form-group">
-                                        <label for="category">الصلاحيات</label>
-                                        <select class="form-control select2 select2-multiple" name="roles[]"
-                                            data-placeholder="أختر الصلاحيات" multiple>
-                                            @foreach ($roles as $role)
-                                                <option value="{{ $role->id }}" @if ($user->roles->contains($role->id)) selected @endif>
-                                                    {{ $role->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @error('roles')
-                                            <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="category">الصلاحيات</label>
+                                    <select class="form-control select2 select2-multiple" name="roles[]"
+                                        data-placeholder="أختر الصلاحيات" multiple>
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}" @if ($user->roles->contains($role->id)) selected @endif>
+                                                {{ $role->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('roles')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
-                            @endif
+                            </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="useremail">البريد الألكترونى</label>
@@ -128,10 +111,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                     </form>
                 </div>
             </div>
@@ -139,26 +118,4 @@
     </div>
 @endsection
 @section('footerScript')
-    <script>
-        let branch_col = `
-            <div class="col-12 col-md-6 branch_col">
-                <div class="form-group">
-                    <label for="name">فرع انشاء الطلب</label>
-                    <select class="form-control select2" name="branch_id">
-                        @foreach ($branches as $branch)
-                            <option value="{{ $branch->id }}" @if(old('branch_id') == $branch->id) selected @endif>{{ $branch->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        `;
-        $(".order_type").on('change', function() {
-            arrayOfValues = $(this).val();
-            if (arrayOfValues.includes('online')) {
-                $(".branch_col").remove();
-            } else {
-                $(this).parent().parent().after(branch_col);
-            }
-        })
-    </script>
 @endsection

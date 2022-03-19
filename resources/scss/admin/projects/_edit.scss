@@ -1,0 +1,21 @@
+.edit_project {
+    .imgs {
+        img {
+            width: 70px;
+            height: 70px;
+            margin: 0px 5px;
+            border-radius: 10px;
+        }
+    }
+    table {
+        input,
+        textarea {
+            width: auto;
+        }
+        textarea {
+            @media (min-width: 992px) {
+                min-width: 400px;
+            }
+        }
+    }
+}

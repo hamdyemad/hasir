@@ -20,7 +20,7 @@
                             <input type="checkbox" class="custom-control-input theme-choice" id="light-mode-switch" checked />
                             <label class="custom-control-label" for="light-mode-switch">Light Mode</label>
                         </div>
-    
+
                         <div class="mb-2">
                             <img src="{{ URL::asset('/images/layouts/layout-2.jpg')}}" class="img-fluid img-thumbnail" alt="">
                         </div>
@@ -28,7 +28,7 @@
                             <input type="checkbox" class="custom-control-input theme-choice" id="dark-mode-switch" data-bsStyle="css/bootstrap-dark.min.css" data-appStyle="css/app-dark.min.css" />
                             <label class="custom-control-label" for="dark-mode-switch">Dark Mode</label>
                         </div>
-    
+
                         <div class="mb-2">
                             <img src="{{ URL::asset('/images/layouts/layout-3.jpg')}}" class="img-fluid img-thumbnail" alt="">
                         </div>
@@ -37,7 +37,7 @@
                             <label class="custom-control-label" for="rtl-mode-switch">RTL Mode</label>
                         </div>
 
-            
+
                     </div>
 
                 </div> <!-- end slimscroll-menu-->
@@ -46,4 +46,4 @@
 
 
             <!-- Right bar overlay-->
-            <div class="rightbar-overlay"></div> 
+            <div class="rightbar-overlay"></div>

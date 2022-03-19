@@ -15,121 +15,125 @@
 
             {{-- Start Noteifications --}}
             @php
-                $status = App\Models\Status::where('default_val', 1)->first();
-                if(Auth::user()->type == 'admin') {
-                    $orders = App\Models\Order::where('viewed', 0)->latest()->get();
-                } else {
-                    $orders = App\Models\Order::where('viewed', 0)->where('branch_id', Auth::user()->branch_id)->latest()->get();
-                }
+                $orders = App\Models\Order::where('viewed', 0)->latest()->get();
+                $messages = App\Models\Message::where('viewed', 0)->where('project_id', null)->latest()->get();
+                $investors = App\Models\Message::where('viewed', 0)->where('project_id', '!=',null)->latest()->get();
             @endphp
             <div class="dropdown d-inline-block ml-1">
                 <button type="button" class="btn header-item noti-icon waves-effect"
                     id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <i class="ti-bell"></i>
-                    <span class="badge badge-danger badge-pill">{{ count($orders) }}</span>
+                    <span class="badge badge-danger badge-pill">{{ count($orders) + count($messages) + count($investors) }}</span>
                 </button>
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right p-0"
                     aria-labelledby="page-header-notifications-dropdown">
-                    <div class="p-3">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h5 class="m-0"> الطلبات ({{ count($orders) }}) </h5>
+                    @if(count($orders) > 0)
+                        <div class="p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h5 class="m-0"> الطلبات ({{ count($orders) }}) </h5>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div data-simplebar style="max-height: 230px;">
-                        {{-- <a href="" class="text-reset notification-item">
-                            <div class="media">
-                                <div class="avatar-xs mr-3">
-                                    <span class="avatar-title border-success rounded-circle ">
-                                        <i class="mdi mdi-cart-outline"></i>
-                                    </span>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 mb-1">Your order is placed</h6>
-                                    <div class="text-muted">
-                                        <p class="mb-1">If several languages coalesce the grammar</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="" class="text-reset notification-item">
-                            <div class="media">
-                                <div class="avatar-xs mr-3">
-                                    <span class="avatar-title border-warning rounded-circle ">
-                                        <i class="mdi mdi-message"></i>
-                                    </span>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 mb-1">New Message received</h6>
-                                    <div class="text-muted">
-                                        <p class="mb-1">You have 87 unread messages</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a> --}}
-
-                        {{-- <a href="" class="text-reset notification-item">
-                            <div class="media">
-                                <div class="avatar-xs mr-3">
-                                    <span class="avatar-title border-info rounded-circle ">
-                                        <i class="mdi mdi-glass-cocktail"></i>
-                                    </span>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 mb-1">Your item is shipped</h6>
-                                    <div class="text-muted">
-                                        <p class="mb-1">It is a long established fact that a reader will</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a> --}}
-                        @foreach ($orders as $order)
-                            <a href="{{ route('orders.show', $order) }}" class="text-reset notification-item">
-                                <div class="media">
-                                    <div class="avatar-xs mr-3">
-                                        <span class="avatar-title border-primary rounded-circle ">
-                                            <i class="mdi mdi-cart-outline"></i>
-                                        </span>
-                                    </div>
-                                    <div class="media-body">
-                                        <h6 class="mt-0 mb-1">رقم الطلب : ({{ $order->id }})</h6>
-                                        <h6 class="mt-0 mb-1">طلب جديد</h6>
-                                        <h6 class="mt-0 mb-1">الحالة : ({{ $order->status->name }})</h6>
-                                        <div class="text-muted">
-                                            <p class="mb-1">عدد الأكلات : ({{ $order->order_details->groupBy('product_id')->count() }})</p>
+                        <div data-simplebar style="max-height: 230px;">
+                            @foreach ($orders as $order)
+                                <a href="{{ route('orders.index') . '?status_id=' . $order->status_id }}" class="text-reset notification-item">
+                                    <div class="media">
+                                        <div class="avatar-xs mr-3">
+                                            <span class="avatar-title border-primary rounded-circle ">
+                                                <i class="mdi mdi-cart-outline"></i>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <h6 class="mt-0 mb-1">رقم الطلب : ({{ $order->id }})</h6>
+                                            <h6 class="mt-0 mb-1">أسم العميل : ({{ $order->client_name }})</h6>
+                                            <h6 class="mt-0 mb-1">رقم العميل : ({{ $order->client_phone }})</h6>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="p-2 border-top">
+                            <a class="btn btn-sm btn-link font-size-14 btn-block text-center" href="{{ route('orders.index') }}">
+                                عرض الطلبات
                             </a>
-                        @endforeach
-
-                        {{-- <a href="" class="text-reset notification-item">
-                            <div class="media">
-                                <div class="avatar-xs mr-3">
-                                    <span class="avatar-title border-warning rounded-circle ">
-                                        <i class="mdi mdi-message"></i>
-                                    </span>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 mb-1">New Message received</h6>
-                                    <div class="text-muted">
-                                        <p class="mb-1">You have 87 unread messages</p>
-                                    </div>
+                        </div>
+                    @endif
+                    @if(count($messages) > 0)
+                        <div class="p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h5 class="m-0"> الرسائل ({{ count($messages) }}) </h5>
                                 </div>
                             </div>
-                        </a> --}}
-                    </div>
-                    <div class="p-2 border-top">
-                        <a class="btn btn-sm btn-link font-size-14 btn-block text-center" href="{{ route('orders.index') . '?status_id='. $status->id }}">
-                            عرض الطلبات
-                        </a>
-                    </div>
+                        </div>
+                        <div data-simplebar style="max-height: 230px;">
+                            @foreach ($messages as $message)
+                                <a href="{{ route('messages.index') . '?status_id=' . $message->status_id }}" class="text-reset notification-item">
+                                    <div class="media">
+                                        <div class="avatar-xs mr-3">
+                                            <span class="avatar-title border-primary rounded-circle ">
+                                                <i class="mdi mdi-cart-outline"></i>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+                                            <h6 class="mt-0 mb-1">رقم الطلب : ({{ $message->id }})</h6>
+                                            <h6 class="mt-0 mb-1">أسم العميل : ({{ $message->name }})</h6>
+                                            <h6 class="mt-0 mb-1">رقم العميل : ({{ $message->phone }})</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="p-2 border-top">
+                            <a class="btn btn-sm btn-link font-size-14 btn-block text-center" href="{{ route('messages.index') }}">
+                                عرض الرسائل
+                            </a>
+                        </div>
+                    @endif
+                    @if(count($investors) > 0)
+                        <div class="p-3">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                    <h5 class="m-0"> المستثمرين ({{ count($investors) }}) </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-simplebar style="max-height: 230px;">
+                            @foreach ($investors as $investor)
+                                <a href="{{ route('investors.index') . '?status_id=' . $investor->status_id . '&project_id' . $investor->project_id }}" class="text-reset notification-item">
+                                    <div class="media">
+                                        <div class="avatar-xs mr-3">
+                                            <span class="avatar-title border-primary rounded-circle ">
+                                                <i class="mdi mdi-cart-outline"></i>
+                                            </span>
+                                        </div>
+                                        <div class="media-body">
+
+                                            <h6 class="mt-0 mb-1">أسم المشروع : (
+                                                @if($investor->project)
+                                                    <span>{{ $investor->project->name }}</span>
+                                                @else
+                                                --
+                                                @endif
+                                                )</h6>
+                                            <h6 class="mt-0 mb-1">أسم المستثمر : ({{ $investor->name }})</h6>
+                                            <h6 class="mt-0 mb-1">رقم المستثمر : ({{ $investor->phone }})</h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                        <div class="p-2 border-top">
+                            <a class="btn btn-sm btn-link font-size-14 btn-block text-center" href="{{ route('investors.index') . '?type=مستثمر' }}">
+                                عرض المستثمرين
+                            </a>
+                        </div>
+                    @endif
                 </div>
             </div>
-            {{-- End Noteifications --}}
+            {{-- End Noteifications
 
 
 
@@ -160,11 +164,11 @@
                 </div>
             </div>
 
-            <div class="dropdown d-inline-block">
+            {{-- <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item noti-icon right-bar-toggle waves-effect">
                     <i class="mdi mdi-spin mdi-settings"></i>
                 </button>
-            </div>
+            </div> --}}
 
         </div>
     </div>

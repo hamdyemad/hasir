@@ -5,12 +5,10 @@ namespace App\Traits;
 trait File
 {
 
-    public $settingsPath = 'uploads/settings/';
-    public $categoriesPath = 'uploads/categories/';
-    public $subCategoriesPath = 'uploads/sub-categories/';
-    public $productsPath = 'uploads/products/';
-    public $usersPath = 'uploads/users/';
-    public $projectPath = 'uploads/project/';
+    public $settingsPath = 'public/uploads/settings/';
+    public $projectsPath = 'public/uploads/projects/';
+    public $clientsPath = 'public/uploads/clients/';
+    public $usersPath = 'public/uploads/users/';
   /**
    * path with file name
    * return delete

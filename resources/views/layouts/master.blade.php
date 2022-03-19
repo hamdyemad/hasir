@@ -12,7 +12,6 @@
     <!-- App favicon -->
     @if (get_setting('logo'))
         <link rel="shortcut icon" href="{{ asset(get_setting('logo')) }}">
-
     @else
         <link rel="shortcut icon" href="{{ URL::asset('/images/default.jpg') }}">
     @endif
@@ -61,7 +60,6 @@
                     <!-- content -->
                     @yield('content')
 
-
                     @include('layouts/partials/footer')
 
                 </div>
@@ -99,9 +97,11 @@
 
     <script src="{{ URL::asset('/libs/owl/owl.carousel.min.js') }}"></script>
     <!-- App js -->
+    <script>
+        var token = $("meta[name=_token]").attr('content');
+    </script>
 
     <script src="{{ URL::asset('/js/app.min.js') }}"></script>
-
     @if (Session::has('success'))
         <script>
             toastr.success("{{ Session::get('success') }}");
@@ -122,45 +122,6 @@
             toastr.primary("{{ Session::get('primary') }}");
         </script>
     @endif
-    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
-    <script>
-        // Enable pusher logging - don't include this in production
-        // Pusher.logToConsole = true;
-
-        var pusher = new Pusher('32b4313009ecadbd1560', {
-        cluster: 'mt1'
-        });
-
-        var orderChannel = pusher.subscribe('newOrder');
-        orderChannel.bind('App\\Events\\newOrder', function(data) {
-            if(data) {
-                if(data.order.branch_id == "{{ Auth::user()->branch_id }}" || "{{Auth::user()->type}}" == 'admin') {
-                    let orders_count = parseInt($('.navbar-header .dropdown .badge-pill').text());
-                    $('.navbar-header .dropdown .badge-pill').text(orders_count + 1);
-                    $('.vertical-menu .orders .badge-pill').text(orders_count + 1);
-                    $(".navbar-header .dropdown .simplebar-content").prepend(`
-                        <a href="{{ asset('/') }}admin/orders/${data.order.id}" class="text-reset notification-item">
-                            <div class="media">
-                                <div class="avatar-xs mr-3">
-                                    <span class="avatar-title border-primary rounded-circle ">
-                                        <i class="mdi mdi-cart-outline"></i>
-                                    </span>
-                                </div>
-                                <div class="media-body">
-                                    <h6 class="mt-0 mb-1">رقم الطلب : (${data.order.id})</h6>
-                                    <h6 class="mt-0 mb-1">طلب جديد</h6>
-                                    <h6 class="mt-0 mb-1">الحالة : (${data.status.name})</h6>
-                                    <div class="text-muted">
-                                        <p class="mb-1">عدد الأكلات : (${data.products_count})</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    `);
-                }
-            }
-        });
-    </script>
 
     <!-- footerScript -->
     @yield('footerScript')

@@ -20,7 +20,7 @@ class notBanned
             return $next($request);
         } else {
             Auth::logout();
-            return redirect()->back()->with('error', 'تم حذرك مع الأسف');
+            return redirect()->back()->with('error', 'تم حظرك مع الأسف');
         }
     }
 }

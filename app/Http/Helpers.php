@@ -2,7 +2,7 @@
 
 use App\Models\Permession;
 use App\Models\Setting;
-
+use Illuminate\Support\Facades\Route;
 
 function activeRoute($routeName) {
     if(Route::current()->getName() == $routeName) {

@@ -18,7 +18,7 @@
                     <h2>الموظفين</h2>
                     @can('users.create')
                         <div class="d-flex justify-content-between create_links">
-                            <a href="{{ route('users.create') . '?type=sub-admin' }}" class="btn btn-primary mb-2">أنشاء موظف</a>
+                            <a href="{{ route('users.create') }}" class="btn btn-primary mb-2">أنشاء موظف</a>
                         </div>
                     @endcan
                 </div>
@@ -42,29 +42,13 @@
                                 <input class="form-control" name="phone" type="text" value="{{ request('phone') }}">
                             </div>
                         </div>
-                        @if(Auth::user()->type == 'admin')
-                            <div class="col-12 col-md-6">
-                                <div class="form-group">
-                                    <label for="branch_id">الفرع</label>
-                                    <select class="form-control" name="branch_id">
-                                        <option value="">أختر الفرع</option>
-                                        @foreach ($branches as $branch)
-                                        <option value="{{ $branch->id }}" @if (request('branch_id') ==  $branch->id) selected @endif>{{ $branch->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('branch_id')
-                                        <div class="text-danger">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-                        @endif
                         <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label for="banned">الحذر</label>
+                                <label for="banned">الحظر</label>
                                 <select class="form-control" name="banned">
                                     <option value="">أختر</option>
-                                    <option value="1" @if (request('banned') == 1) selected @endif>محذور</option>
-                                    <option value="2" @if (request('banned') == 2) selected @endif>غير محذور</option>
+                                    <option value="1" @if (request('banned') == 1) selected @endif>محظور</option>
+                                    <option value="2" @if (request('banned') == 2) selected @endif>غير محظور</option>
                                 </select>
                             </div>
                         </div>
@@ -84,13 +68,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>الفرع</th>
                                 <th>أسم الموظف</th>
                                 <th>البريد الألكترونى</th>
                                 <th>الصلاحيات</th>
                                 <th>الهاتف</th>
                                 <th>العنوان</th>
-                                <th>الحذر</th>
+                                <th>الحظر</th>
                                 <th>وقت الأنشاء</th>
                                 <th>وقت أخر تعديل</th>
                                 <th>الأعدادات</th>
@@ -100,11 +83,6 @@
                             @foreach ($users as $user)
                                 <tr>
                                     <th scope="row">{{ $user->id }}</th>
-                                    @if($user->branch)
-                                        <td>
-                                            <div class="badge badge-primary p-2">موظف فى : ({{ $user->branch->name }})</div>
-                                        </td>
-                                    @endif
                                     <td>
                                         <div class="d-flex">
                                             @if ($user->avatar)

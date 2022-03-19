@@ -29,7 +29,6 @@ class UserController extends Controller
         $this->authorize('users.index');
         Carbon::setLocale('ar');
         $users = User::where('type', '!=', 'admin')->where('id', '!=', Auth::id());
-        $branches = Branch::orderBy('name')->get();
         $roles = Role::latest()->get();
         if($request->name) {
             $users->where('name', 'like', '%' . $request->name . '%');
@@ -46,19 +45,8 @@ class UserController extends Controller
         if($request->banned) {
             $users->where('banned', 'like', '%' . $request->banned . '%');
         }
-
-        if(Auth::user()->type !== 'admin') {
-            $users->where('branch_id', Auth::user()->branch_id);
-        }
-        if($request->type == 'user') {
-            $users->where('type', 'user');
-            $users = $users->latest()->paginate(10);
-            return view('users.users_index', compact('users'));
-        } else {
-            $users->where('type', '!=' ,'user');
-            $users = $users->latest()->paginate(10);
-            return view('users.employee_index', compact('users', 'roles', 'branches'));
-        }
+        $users = $users->latest()->paginate(10);
+        return view('users.employee_index', compact('users', 'roles'));
 
     }
 
@@ -73,13 +61,12 @@ class UserController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->type) {
-            $this->authorize('users.create');
-            $branches = Branch::orderBy('name')->get();
-            $roles = Role::latest()->get();
-            return view('users.create', compact('roles', 'branches'));
+        $this->authorize('users.create');
+        $roles = Role::latest()->get();
+        if($roles->count() > 0) {
+            return view('users.create', compact('roles'));
         } else {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'يجب عليك انشاء صلاحيات أولا');
         }
     }
 
@@ -95,29 +82,18 @@ class UserController extends Controller
         $creation = [
             'name' => $request->name,
             'email' => $request->email,
-            'type' => $request->type,
+            'type' => 'sub-admin',
             'address' => $request->address,
             'phone' => $request->phone,
             'password' => Hash::make($request->password)
         ];
-        if($request->order_type) {
-            $creation['order_type'] = $request->order_type;
-        }
-        if($request->branch_id) {
-            $creation['branch_id'] = $request->branch_id;
-        } else {
-            $creation['branch_id'] = 0;
-        }
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'type' => ['required'],
-            'branch_id' => 'nullable|exists:branches,id',
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
         $messages = [
             'name.required' => 'الأسم مطلوب',
-            'type.required' => 'نوع المستخدم مطلوب',
             'name.string' => 'الأسم يجب أن يكون حروفا',
             'name.max' => 'يجب ادخال حروف اقل من 255',
             'email.required' => 'البريد الألكترونى مطلوب',
@@ -128,7 +104,6 @@ class UserController extends Controller
             'password.string' =>'الرقم السرى يجب أن يكون حروفا',
             'password.min' =>'ادخل حروف اكثر من 8',
             'password.confirmed' => 'يجب على الرقم السرى أن يكون مطابق',
-            'branch_id.exists' => 'يجب اختيار فرع',
         ];
 
         if($request->type == 'sub-admin') {
@@ -171,13 +146,12 @@ class UserController extends Controller
      */
     public function edit(Request $request,User $user)
     {
-        if($request->type) {
-            $this->authorize('users.edit');
-            $branches = Branch::orderBy('name')->get();
-            $roles = Role::latest()->get();
-            return view('users.edit', compact('user', 'roles', 'branches'));
+        $this->authorize('users.edit');
+        $roles = Role::latest()->get();
+        if($roles->count() > 0) {
+            return view('users.edit', compact('user', 'roles'));
         } else {
-            return redirect()->back();
+            return redirect()->back()->with('error', 'يجب عليك انشاء صلاحيات أولا');
         }
     }
 
@@ -201,7 +175,6 @@ class UserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255',Rule::unique('users', 'email')->ignore($user->id)],
             'roles' => 'required|exists:roles,id',
-            'branch_id' => 'nullable|exists:branches,id',
         ];
         $messages = [
             'name.required' => 'الأسم مطلوب',
@@ -211,7 +184,6 @@ class UserController extends Controller
             'email.string' => 'البريد الألكترونى يجب أن يكون حروفا',
             'email.max' => 'يجب ادخال حروف اقل من 255',
             'email.unique' => 'البريد الألكترونى هذا موجود بالفعل',
-            'branch_id.exists' => 'يجب اختيار فرع',
             'roles.required' => 'الصلاحيات مطلوبة',
             'roles.exists' => 'الصلاحية غير موجودة بالبيانات'
         ];
@@ -220,18 +192,9 @@ class UserController extends Controller
             unset($messages['roles.required']);
             unset($messages['roles.exists']);
         }
-        if($request->type) {
-            $updateArray['type'] = $request->type;
-            $rules['type'] = 'required';
-            $messages['type.required'] = 'نوع المستخدم مطلوب';
-        }
+
         if($request->password !== null) {
             $updateArray['password'] = Hash::make($request->password);
-        }
-        if($request->branch_id) {
-            $updateArray['branch_id'] = $request->branch_id;
-        } else {
-            $updateArray['branch_id'] = 0;
         }
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()) {
@@ -263,10 +226,10 @@ class UserController extends Controller
     public function banned(Request $request, User $user) {
         if($request->active == 'on') {
             $user->update(['banned' => 1]);
-            return redirect()->back()->with('success', 'تم حذر ' . $user->name . ' بنجاح');
+            return redirect()->back()->with('success', 'تم حظر ' . $user->name . ' بنجاح');
         } else {
             $user->update(['banned' => 0]);
-            return redirect()->back()->with('success', 'تم فك حذر ' . $user->name . ' بنجاح');
+            return redirect()->back()->with('success', 'تم فك حظر ' . $user->name . ' بنجاح');
         }
     }
 

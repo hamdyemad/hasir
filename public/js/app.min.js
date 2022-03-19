@@ -69,39 +69,39 @@ File: Main Js File
         });
     }
 
-    function initMenuItem() {
-        $(".navbar-nav a").each(function() {
-            var pageUrl = window.location.href.split(/[?#]/)[0];
-            if (this.href == pageUrl) {
-                $(this).addClass("active");
-                $(this)
-                    .parent()
-                    .addClass("active");
-                $(this)
-                    .parent()
-                    .parent()
-                    .addClass("active");
-                $(this)
-                    .parent()
-                    .parent()
-                    .parent()
-                    .addClass("active");
-                $(this)
-                    .parent()
-                    .parent()
-                    .parent()
-                    .parent()
-                    .addClass("active");
-                $(this)
-                    .parent()
-                    .parent()
-                    .parent()
-                    .parent()
-                    .parent()
-                    .addClass("active");
-            }
-        });
-    }
+    // function initMenuItem() {
+    //     $(".navbar-nav a").each(function() {
+    //         var pageUrl = window.location.href.split(/[?#]/)[0];
+    //         if (this.href == pageUrl) {
+    //             $(this).addClass("active");
+    //             $(this)
+    //                 .parent()
+    //                 .addClass("active");
+    //             $(this)
+    //                 .parent()
+    //                 .parent()
+    //                 .addClass("active");
+    //             $(this)
+    //                 .parent()
+    //                 .parent()
+    //                 .parent()
+    //                 .addClass("active");
+    //             $(this)
+    //                 .parent()
+    //                 .parent()
+    //                 .parent()
+    //                 .parent()
+    //                 .addClass("active");
+    //             $(this)
+    //                 .parent()
+    //                 .parent()
+    //                 .parent()
+    //                 .parent()
+    //                 .parent()
+    //                 .addClass("active");
+    //         }
+    //     });
+    // }
 
     function initFullScreen() {
         $('[data-toggle="fullscreen"]').on("click", function(e) {
@@ -278,12 +278,66 @@ File: Main Js File
             sessionStorage.setItem("is_visited", "rtl-mode-switch");
         }
     }
+    function fileSys() {
+        $(".files").on("click", function() {
+            $(this)
+                .parent()
+                .find(".input_files")
+                .click();
+        });
+        $(".input_files").on("change", function() {
+            let filesBtn = $(this)
+                .parent()
+                .find(".files");
+            let imgs = $(this)
+                .parent()
+                .find(".imgs");
+
+            imgs.empty();
+            let files = this.files;
+            if (files.length > $(this).data("img")) {
+                $(this)[0].value = "";
+                $(this)
+                    .parent()
+                    .find(".file_error")
+                    .removeAttr("hidden");
+            } else {
+                $(this)
+                    .parent()
+                    .find(".file_error")
+                    .attr("hidden", "");
+                files.forEach(file => {
+                    let fileReader = new FileReader();
+                    fileReader.readAsDataURL(file);
+                    fileReader.onload = function(event) {
+                        let img = document.createElement("img");
+                        img.setAttribute("class", "rounded");
+                        img.src = event.target.result;
+                        imgs.append(img);
+                    };
+                    if (files.length > 2) {
+                        imgs.css({ overflowX: "scroll" });
+                        filesBtn.text(files.length);
+                    } else {
+                        imgs.css({ overflowX: "auto" });
+                        if (files[0].name.length > 15) {
+                            filesBtn.text(
+                                files[0].name.substring(0, 15) + "..."
+                            );
+                        } else {
+                            filesBtn.text(files[0].name);
+                        }
+                    }
+                });
+            }
+        });
+    }
 
     function init() {
         initMetisMenu();
         initLeftMenuCollapse();
         initActiveMenu();
-        initMenuItem();
+        // initMenuItem();
         initFullScreen();
         initRightSidebar();
         initDropdownMenu();
@@ -291,63 +345,63 @@ File: Main Js File
         initSettings();
         initHeaderCharts();
         initPreloader();
+        fileSys();
         Waves.init();
     }
 
     init();
 
-    $(".files").on("click", function() {
-        $(".input_files").click();
+    $(".btn-default").text("تحديد");
+    if (window.matchMedia("(max-width: 991px)").matches) {
+        $(".frontend .front-page-content").css({
+            marginTop: `${$(".frontend .navbar").height()}px`
+        });
+    } else {
+        $(".frontend .front-page-content").css({
+            marginTop: `${$(".frontend .navbar").height()}px`
+        });
+    }
+    $(".frontend .header").css({
+        height: `calc(100vh - ${$(".frontend .navbar").height()}px)`
     });
-    $(".input_files").on("change", function(e) {
-        $(".input_files")
-            .parent()
-            .find(".imgs")
-            .empty();
-        let files = this.files;
-        if (files.length > 5) {
-            $(".file_error").removeAttr("hidden");
-        } else {
-            $(".file_error").attr("hidden", "");
-            files.forEach(file => {
-                let fileReader = new FileReader();
-                fileReader.readAsDataURL(file);
-                fileReader.onload = function(event) {
-                    let img = document.createElement("img");
-                    img.setAttribute("class", "rounded");
-                    img.src = event.target.result;
-                    $(".input_files")
-                        .parent()
-                        .find(".imgs")
-                        .append(img);
-                };
-                if (files.length > 1) {
-                    $(".files").text(files.length);
-                } else {
-                    $(".files").text(files[0].name);
+
+    window.onscroll = function() {
+        $(".frontend .navbar .navbar-nav")
+            .children()
+            .each((index, li) => {
+                if ($(`${$(li).data("nav")}`)[0] !== undefined) {
+                    if (
+                        window.scrollY >
+                        $(`${$(li).data("nav")}`).offset().top - 200
+                    ) {
+                        $(".frontend .navbar .navbar-nav")
+                            .children()
+                            .each((index, li) => {
+                                $("li a").removeClass("active_link");
+                            });
+                        $(li)
+                            .find("a")
+                            .addClass("active_link");
+                    }
                 }
             });
-        }
-    });
-
-    $(".btn-default").text("تحديد");
-
-    $(".cart_items").on("click", function(event) {
-        event.stopPropagation();
-    });
-
-    $(".frontend").css("padding-bottom", $(".footer_fixed").height() + "px");
-
-    $(".frontend .header").css(
-        "height",
-        `calc(100vh - ${$(".frontend .navbar").height()}px)`
-    );
-
-    // $("video").trigger("play");
+    };
+    $(".frontend .navbar .navbar-nav")
+        .children()
+        .each((index, li) => {
+            $(li)
+                .find("a")
+                .on("click", function() {
+                    $(".frontend .navbar .navbar-nav")
+                        .children()
+                        .each((index, li) => {
+                            $("li a").removeClass("active_link");
+                        });
+                    $(this).addClass("active_link");
+                    window.scrollTo({
+                        top: $(`${$(li).data("nav")}`).offset().top - 150,
+                        behavior: "smooth"
+                    });
+                });
+        });
 })(jQuery);
-window.onload = function() {
-    var video = document.querySelector("video");
-    video.muted = true;
-    video.controls = false;
-    video.play();
-};

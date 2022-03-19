@@ -25,7 +25,7 @@ class StatusController extends Controller
            $statuses->where('name', 'like', '%' . $request->name . '%');
         }
         $statuses = $statuses->paginate(10);
-        return view('orders.statuses.index', compact('statuses'));
+        return view('statuses.index', compact('statuses'));
     }
 
     /**
@@ -36,7 +36,7 @@ class StatusController extends Controller
     public function create()
     {
         $this->authorize('statuses.create');
-        return view('orders.statuses.create');
+        return view('statuses.create');
     }
 
     /**
@@ -97,7 +97,7 @@ class StatusController extends Controller
     public function edit(Status $status)
     {
         $this->authorize('statuses.edit');
-        return view('orders.statuses.edit', compact('status'));
+        return view('statuses.edit', compact('status'));
     }
 
     /**
@@ -113,16 +113,6 @@ class StatusController extends Controller
         $creation = [
             'name' => $request->name
         ];
-        if($request->has('default_val')) {
-            if($request->default_val == 'on') {
-                $creation['default_val'] = 1;
-                $status = Status::where('default_val', 1)->first();
-                if($status) {
-                    $status->default_val = 0;
-                    $status->save();
-                }
-            }
-        }
         $validator = Validator::make($request->all(), [
             'name' => ['required', Rule::unique('statuses', 'name')->ignore($status->id)]
         ], [
@@ -133,6 +123,16 @@ class StatusController extends Controller
             return redirect()->back()->withErrors($validator->errors())
             ->withInput($request->all())
             ->with('error', 'يوجد خطأ ما');
+        }
+        if($request->has('default_val')) {
+            if($request->default_val == 'on') {
+                $creation['default_val'] = 1;
+                $status_finded = Status::where('default_val', 1)->first();
+                if($status_finded) {
+                    $status_finded->default_val = 0;
+                    $status_finded->save();
+                }
+            }
         }
         $status->update($creation);
         return redirect()->back()->with('info', 'تم تعديل الحالة بنجاح');

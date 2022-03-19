@@ -140,7 +140,7 @@ const folder = {
     var out = folder.dist_assets + "fonts";
     mix.copyDirectory(folder.src + "fonts", out);
 
-    // copy all images 
+    // copy all images
     var out = folder.dist_assets + "images";
     mix.copyDirectory(folder.src + "images", out);
 
@@ -187,4 +187,5 @@ const folder = {
     	};
     });
 
+    mix.disableNotifications();
     mix.combine('resources/js/app.js', folder.dist_assets + "js/app.min.js");

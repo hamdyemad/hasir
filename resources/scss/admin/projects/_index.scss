@@ -1,0 +1,21 @@
+.all_projects {
+    span {
+        width: max-content;
+        display: block;
+    }
+    p {
+        max-width: 250px;
+    }
+    tbody:not(:last-of-type) {
+        border-bottom: 5px solid var(--primary);
+    }
+    img {
+        width: 200px;
+        height: 100px;
+        border-radius: 10px;
+        @media (max-width: 991px) {
+            width: 50px;
+            height: 50px;
+        }
+    }
+}

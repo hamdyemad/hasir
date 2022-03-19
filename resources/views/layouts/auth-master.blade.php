@@ -6,10 +6,14 @@
     <title> @yield('title')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_token" content="{{ csrf_token() }}">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
+    <meta content="تسجيل الدخول للوحة التحكم" name="description" />
+    <meta content="hamdy emad" name="author" />
     <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ URL::asset('/images/favicon.ico') }}">
+    @if (get_setting('logo'))
+        <link rel="shortcut icon" href="{{ asset(get_setting('logo')) }}">
+    @else
+        <link rel="shortcut icon" href="{{ URL::asset('/images/default.jpg') }}">
+    @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cairo&display=swap" rel="stylesheet">

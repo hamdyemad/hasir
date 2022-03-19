@@ -49,10 +49,30 @@
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
-                                    <label for="name">الهيدر</label>
-                                    <input type="text" class="form-control" value="{{ get_setting('header') }}"
-                                        name="type[header]">
-                                    @error('header')
+                                    <label for="name">البريد الألكترونى</label>
+                                    <input type="text" class="form-control" value="{{ get_setting('email') }}"
+                                        name="type[email]">
+                                    @error('email')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="name">الهاتف</label>
+                                    <input type="text" class="form-control" value="{{ get_setting('phone') }}"
+                                        name="type[phone]">
+                                    @error('phone')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="name">العنوان</label>
+                                    <input type="text" class="form-control" value="{{ get_setting('address') }}"
+                                        name="type[address]">
+                                    @error('address')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -63,6 +83,16 @@
                                     <input type="text" class="form-control" value="{{ get_setting('facebook') }}"
                                         name="type[facebook]">
                                     @error('facebook')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="name">لينك تويتر</label>
+                                    <input type="text" class="form-control" value="{{ get_setting('twitter') }}"
+                                        name="type[twitter]">
+                                    @error('twitter')
                                         <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
