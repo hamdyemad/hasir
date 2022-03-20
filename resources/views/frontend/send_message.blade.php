@@ -31,7 +31,7 @@
                                 <div class="form-group">
                                     <select class="form-control select2" name="type">
                                         <option value="">أختر نوع الطلب</option>
-                                        <option @if(request('type') == 'مستثمر') selected @endif value="مستثمر">مستثمر</option>
+                                        <option @if(request('type') == 'تعاون تجارى') selected @endif value="تعاون تجارى">تعاون تجارى</option>
                                         <option value="طالب عقار">طالب عقار</option>
                                         <option value="أخرى">أخرى</option>
                                     </select>

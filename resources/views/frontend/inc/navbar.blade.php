@@ -46,8 +46,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link @if(activeRoute('frontend.send_message_page')) active_link @endif "@if(activeRoute('frontend.send_message_page')) @else  href="{{ route('frontend.send_message_page') . '?type=مستثمر' }}" @endif>
-                        أستثمر معنا
+                    <a class="nav-link @if(activeRoute('frontend.send_message_page')) active_link @endif "@if(activeRoute('frontend.send_message_page')) @else  href="{{ route('frontend.send_message_page') . '?type=تعاون تجارى' }}" @endif>
+                        تعاون تجارى
                         <img src="{{ asset('/images/icons/building.png') }}" alt="">
                     </a>
                 </li>

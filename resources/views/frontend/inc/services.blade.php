@@ -35,8 +35,8 @@
                 <h3>
                     فريق حصير يعملون على قدمٍ وساق لإنجاز متطلباتك وتحقيق احلامك على الوجه الأمثل.
                 </h3>
-                <a class="btn btn-primary rounded" href="{{ route('frontend.send_message_page') . '?type=مستثمر' }}">
-                    <span class="h5">أستثمر معنا</span>
+                <a class="btn btn-primary rounded" href="{{ route('frontend.send_message_page') . '?type=تعاون تجارى' }}">
+                    <span class="h5">تعاون تجارى</span>
                 </a>
             </div>
         </div>
