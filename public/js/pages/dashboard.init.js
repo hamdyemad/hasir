@@ -271,7 +271,7 @@ function ($) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\development\resources\js\pages\dashboard.init.js */"./resources/js/pages/dashboard.init.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\hasir\resources\js\pages\dashboard.init.js */"./resources/js/pages/dashboard.init.js");
 
 
 /***/ })

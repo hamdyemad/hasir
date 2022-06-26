@@ -21,11 +21,6 @@
                             المراكز التجارية.
                         </div>
                     </div>
-                    <div class="wow fadeInRight" data-wow-offset="50" data-wow-delay="0.2s">
-                        <div class="card">
-                            طلب صيانة
-                        </div>
-                    </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <img class="bg wow fadeInLeft"  data-wow-offset="200" src="{{ asset('/images/icons/2.png') }}" alt="">

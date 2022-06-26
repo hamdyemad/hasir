@@ -9,7 +9,7 @@
     <script>
         $('.projects_carousel').owlCarousel({
             margin:10,
-            loop: true,
+            // loop: true,
             rtl: true,
             nav:true,
             responsive:{

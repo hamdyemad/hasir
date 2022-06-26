@@ -7,7 +7,7 @@
             <div class="col-12 col-md-6">
                 <div class="card wow fadeInRight" data-wow-offset="50" data-wow-delay="0.1s">
                     <div class="card-header">
-                       تصاميم عصرية بطابع تراثي:
+                       تصاميم عصرية بطابع تراثي
                     </div>
                     <div class="card-body">
                         نفخر بحَصِير كوننا جمعنا بين تراثنا الأصيل وفخامة العصر الحديث بتصاميم
@@ -19,7 +19,7 @@
             <div class="col-12 col-md-6">
                 <div class="card wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.2s">
                     <div class="card-header">
-                        خدمات متنوعة:
+                        خدمات متنوعة
                     </div>
                     <div class="card-body">
                         نعمل نحن حَصِير على العديد من الخدمات وتلبية جميع متطلباتكم من مساكن
@@ -30,7 +30,7 @@
             <div class="col-12 col-md-6">
                 <div class="card wow fadeInRight" data-wow-offset="50" data-wow-delay="0.3s">
                     <div class="card-header">
-                        فريق العمل:
+                        فريق العمل
                     </div>
                     <div class="card-body">
                         نهتم نحن في حَصِير ان نعمل ضمن فريق واحد يتكاتف ويسعى لبناء أفضل المساكن وأرقى المنشآت التي تليق بالعملاء مع التأكيد على تنفيذ العمل على ايدي وأفضل وامهر المهندسين والمستشارين بالتصاميم الداخلية
@@ -41,7 +41,7 @@
             <div class="col-12 col-md-6">
                 <div class="card wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.4s">
                     <div class="card-header">
-                        خدمات الأمن:
+                        خدمات الأمن
                     </div>
                     <div class="card-body">
                         لأن أمانكم هو أولويتنا تقدم حصير كاميرات مراقبة تعمل على مدار الساعة
@@ -52,7 +52,7 @@
             <div class="col-12 col-md-6">
                 <div class="card wow fadeInRight" data-wow-offset="50" data-wow-delay="0.5s">
                     <div class="card-header">
-                        تقنية حديثة:
+                        تقنية حديثة
                     </div>
                     <div class="card-body">
                         نقدم ضمن مساكن حصير نظام سمارت هوم مما يمكنك
@@ -63,21 +63,9 @@
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="card wow fadeInLeft" data-wow-offset="50" data-wow-delay="0.6s">
-                    <div class="card-header">
-                        الضمانات:
-                    </div>
-                    <div class="card-body">
-                        نعتز كوننا طبقنا أحكام كود البناء السعودي لضمان منشآه
-                        امنه ومتينة، بالإضافة الى عمر افتراضي طويل يصل
-                        الى 40 سنة.
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
                 <div class="card wow fadeInUp" data-wow-offset="50" data-wow-delay="0.7s">
                     <div class="card-header">
-                        مساحات إضافية:
+                        مساحات إضافية
                     </div>
                     <div class="card-body">
                         حرصنا على ان يكون لدى كل مسكن مساحة اضافية

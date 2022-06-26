@@ -52,7 +52,7 @@
                     <div class="content">
                         <span class="mdi mdi-newspaper-variant-outline"></span>
                         <h2>ضمانات حصير</h2>
-                        <p>(شعارات شركات الضمان + عدد سنوات الضمان).</p>
+                        <p>(ضمانات تصل الى 15 سنة).</p>
                     </div>
                 </div>
             </div>
